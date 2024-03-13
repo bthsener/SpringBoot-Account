@@ -11,19 +11,28 @@ data class Account(
         @Id
         @GeneratedValue(generator = "UUID")
         @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-        val id: String? = null,
+        val id: String? = "",
         val balance: BigDecimal? = BigDecimal.ZERO,
         val creationDate: LocalDateTime,
 
         @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
         @JoinColumn(name = "customer_id", nullable = false)
-        val customer: Customer? = null,
+        val customer: Customer?,
 
         @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
-        val transaction: Set<Transaction>? = null
+        val transaction: Set<Transaction> = HashSet()
 
 ) {
-        constructor() : this(null, null, LocalDateTime.now(), null, null)
+
+        constructor(customer: Customer, balance: BigDecimal, creationDate: LocalDateTime) : this(
+                "",
+                customer = customer,
+                balance = balance,
+                creationDate = creationDate
+        )
+
+        constructor() : this("", BigDecimal.ZERO, LocalDateTime.now(), null, HashSet())
+
 
         override fun equals(other: Any?): Boolean {
                 if (this === other) return true

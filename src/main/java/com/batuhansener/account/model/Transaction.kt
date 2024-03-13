@@ -8,18 +8,28 @@ import java.time.LocalDateTime
 @Entity
 data class Transaction (
         @Id
-        @GeneratedValue(generator = "UUID")
+//        @GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
         @GenericGenerator(name = "UUID", strategy = "com.hiberrnate.id.UUIDGenerator")
-        val id: String?,
-        val transactionType: TransactionType? = TransactionType.INITIAL,
+        val id: String? = "",
+        val transactionType: TransactionType?,
         val amount: BigDecimal?,
         val transactionDate: LocalDateTime,
 
         @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = [CascadeType.ALL])
-        @JoinColumn(name = "accound_id", nullable = false)
+        @JoinColumn(name = "account_id", nullable = false)
         val account: Account?
 ){
-        constructor() : this(null, null, null, LocalDateTime.now(), null)
+
+        constructor() : this("", null, null, LocalDateTime.now(), null)
+
+        constructor(amount: BigDecimal, account: Account) : this(
+                id = "",
+                transactionType = TransactionType.INITIAL,
+                amount = amount,
+                transactionDate = LocalDateTime.now(),
+                account = account
+        )
+
 
         override fun equals(other: Any?): Boolean {
                 if (this === other) return true
