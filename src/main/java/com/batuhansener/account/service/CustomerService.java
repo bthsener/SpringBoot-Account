@@ -1,6 +1,7 @@
 package com.batuhansener.account.service;
 
 import com.batuhansener.account.dto.AccountCustomerDto;
+import com.batuhansener.account.dto.CustomerDto;
 import com.batuhansener.account.dto.converter.CustomerDtoConverter;
 import com.batuhansener.account.exception.CustomerNotFoundException;
 import com.batuhansener.account.model.Customer;
@@ -25,10 +26,15 @@ public class CustomerService {
         return customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException("Customer could not find by id: "+id));
     }
 
-    public List<AccountCustomerDto> getAllCustomer(){
+    public List<CustomerDto> getAllCustomers(){
         return customerRepository.findAll()
                 .stream()
-                .map(converter::convertToAccountCustomer)
+                .map(converter::convertToCustomerDto)
                 .collect(Collectors.toList());
+    }
+
+    public CustomerDto getCustomerById(String customer_id){
+        Customer customer = findCustomerById(customer_id);
+        return converter.convertToCustomerDto(customer);
     }
 }
