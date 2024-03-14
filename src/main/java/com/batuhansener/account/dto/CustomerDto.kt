@@ -5,6 +5,6 @@ data class CustomerDto (
         val id: String?,
         val name: String?,
         val surname: String?,
-        val accounts: Set<AccountDto>?
+        val accounts: Set<CustomerAccountDto>?
 
 )
