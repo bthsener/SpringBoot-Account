@@ -32,12 +32,12 @@ public class AccountService {
     public AccountDto createAccount(CreateAccountRequest createAccountRequest){
         Customer customer = customerService.findCustomerById(createAccountRequest.getCustomer_id());
         Account account = new Account(customer, createAccountRequest.getInitialCredit(), LocalDateTime.now());
-
+        account = accountRepository.save(account);
         if (createAccountRequest.getInitialCredit().compareTo(BigDecimal.ZERO) > 0) {
             Transaction transaction = transactionService.initiateMoney(account, createAccountRequest.getInitialCredit());
             account.getTransaction().add(transaction);
         }
-        return converter.convert(accountRepository.save(account));
+        return converter.convert(account);
     }
 
 }
