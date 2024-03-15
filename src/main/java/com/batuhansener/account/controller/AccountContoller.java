@@ -2,7 +2,6 @@ package com.batuhansener.account.controller;
 
 import com.batuhansener.account.dto.AccountDto;
 import com.batuhansener.account.dto.CreateAccountRequest;
-import com.batuhansener.account.model.Account;
 import com.batuhansener.account.service.AccountService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,4 +25,11 @@ public class AccountContoller {
     public String getMessage(){
         return "selam";
     }
+
+    @DeleteMapping("/{account_id}")
+    public void deleteAccount(@PathVariable String account_id){
+        System.out.println("selam");
+        accountService.deleteAccount(account_id);
+    }
+
 }
