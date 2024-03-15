@@ -37,4 +37,10 @@ public class CustomerService {
         Customer customer = findCustomerById(customer_id);
         return converter.convertToCustomerDto(customer);
     }
+
+    public void updateCustomerName(String customer_id, String customer_name){
+        Customer customer = findCustomerById(customer_id);
+        customer.setName(customer_name);
+        customerRepository.saveAndFlush(customer);
+    }
 }

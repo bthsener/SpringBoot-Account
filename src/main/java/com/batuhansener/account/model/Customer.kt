@@ -2,7 +2,6 @@ package com.batuhansener.account.model
 
 import jakarta.persistence.*
 import org.hibernate.annotations.GenericGenerator
-import java.time.LocalDateTime
 
 @Entity
 data class Customer (
@@ -11,7 +10,7 @@ data class Customer (
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     val id: String?,
-    val name: String?,
+    var name: String?,
     val surname: String?,
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     val accounts: Set<Account>?
@@ -38,5 +37,8 @@ data class Customer (
         return result
     }
 
+    public fun setName() {
+        this.name = name;
+    }
 
 }

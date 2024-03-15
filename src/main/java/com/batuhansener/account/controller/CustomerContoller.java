@@ -1,15 +1,11 @@
 package com.batuhansener.account.controller;
 
-import com.batuhansener.account.dto.AccountCustomerDto;
-import com.batuhansener.account.dto.CustomerAccountDto;
-import com.batuhansener.account.dto.CustomerDto;
+import com.batuhansener.account.dto.*;
+import com.batuhansener.account.model.Customer;
 import com.batuhansener.account.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,4 +28,11 @@ public class CustomerContoller {
     public ResponseEntity<List<CustomerDto>> getAllCustomers(){
         return ResponseEntity.ok(customerService.getAllCustomers());
     }
+
+    @PutMapping
+    public ResponseEntity<CustomerDto> updateCustomerName(@RequestBody UpdateCustomerNameRequest request){
+        customerService.updateCustomerName(request.getCustomer_id(), request.getCustomer_name());
+        return ResponseEntity.ok(customerService.getCustomerById(request.getCustomer_id()));
+    }
+
 }
