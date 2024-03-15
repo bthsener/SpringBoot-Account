@@ -22,4 +22,6 @@ The assessment consists of an API to be used for opening a new “current accoun
 POST /v1/account - creates a new account for existing customer
 GET /v1/customer/{customerId} - retrieves a customer
 GET /v1/customer - retrieves all customers
+DELETE /v1/account/{accountId} - deletes a account
+PUT /v1/customer - updates customer
 ```
