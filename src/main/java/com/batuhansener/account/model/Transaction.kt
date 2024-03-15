@@ -9,24 +9,25 @@ import java.time.LocalDateTime
 data class Transaction (
         @Id
 //        @GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
-        @GenericGenerator(name = "UUID", strategy = "com.hiberrnate.id.UUIDGenerator")
+        @GeneratedValue(generator = "UUID")
+        @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
         val id: String? = "",
         val transactionType: TransactionType?,
         val amount: BigDecimal?,
         val transactionDate: LocalDateTime,
 
-        @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = [CascadeType.ALL])
+        @ManyToOne(fetch = FetchType.LAZY, optional = false)
         @JoinColumn(name = "account_id", nullable = false)
         val account: Account?
 ){
 
         constructor() : this("", null, null, LocalDateTime.now(), null)
 
-        constructor(amount: BigDecimal, account: Account) : this(
-                id = "",
-                transactionType = TransactionType.INITIAL,
+        constructor(amount: BigDecimal, transactionDate: LocalDateTime, account: Account) : this(
+                id = null,
                 amount = amount,
-                transactionDate = LocalDateTime.now(),
+                transactionDate = transactionDate,
+                transactionType = TransactionType.INITIAL,
                 account = account
         )
 

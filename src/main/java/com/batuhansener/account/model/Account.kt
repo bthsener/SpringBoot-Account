@@ -15,11 +15,11 @@ data class Account(
         val balance: BigDecimal? = BigDecimal.ZERO,
         val creationDate: LocalDateTime,
 
-        @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+        @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "customer_id", nullable = false)
         val customer: Customer?,
 
-        @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+        @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
         val transaction: Set<Transaction> = HashSet()
 
 ) {

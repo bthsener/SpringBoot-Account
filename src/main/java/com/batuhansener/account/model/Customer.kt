@@ -13,7 +13,7 @@ data class Customer (
     val id: String?,
     val name: String?,
     val surname: String?,
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     val accounts: Set<Account>?
 ) {
     constructor() : this(null, null, null, null)
