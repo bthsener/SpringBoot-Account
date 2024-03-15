@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Service
 public class TransactionService {
@@ -18,10 +19,14 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
-    protected Transaction initiateMoney(final Account account, BigDecimal amount){
-        return transactionRepository.save(
-                //JpaRepo verdiğim nesneyi alacak ve id ekleyip tekrar bana dönecek
-                new Transaction(amount, account)
-        );
+//    protected Transaction initiateMoney(final Account account, BigDecimal amount){
+//        return transactionRepository.save(
+//                //JpaRepo verdiğim nesneyi alacak ve id ekleyip tekrar bana dönecek
+//                new Transaction(amount, account)
+//        );
+//    }
+
+    public void deleteAllAccountTransactions(Set<Transaction> transactionSet){
+        transactionRepository.deleteAll(transactionSet);
     }
 }
